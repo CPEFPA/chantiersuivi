@@ -1,121 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+﻿import { useState, useEffect } from 'react'
+import { supabase } from './lib/supabase'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [session, setSession] = useState(null)
+  const [chantiers, setChantiers] = useState([])
 
+  // Vérifier la session au chargement
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  // Interface non authentifié
+  if (!session) {
+    return (
+      <div style={{ fontFamily: 'system-ui', textAlign: 'center', padding: '2rem' }}>
+        <h1>🏗️ ChantierSuivi</h1>
+        <p>Suivez vos chantiers en temps réel, même depuis la diaspora</p>
+        <form onSubmit={(e) => {
+          e.preventDefault()
+          const email = e.target.email.value
+          const password = e.target.password.value
+          supabase.auth.signInWithPassword({ email, password })
+            .then(({ error }) => { if (error) alert('❌ ' + error.message) })
+        }}>
+          <input name="email" type="email" placeholder="Email" required 
+            style={{ display: 'block', margin: '0.5rem auto', padding: '0.75rem', width: '80%' }} />
+          <input name="password" type="password" placeholder="Mot de passe" required 
+            style={{ display: 'block', margin: '0.5rem auto', padding: '0.75rem', width: '80%' }} />
+          <button type="submit" 
+            style={{ background: '#0056b3', color: 'white', border: 'none', padding: '0.75rem 2rem', 
+                     borderRadius: '8px', cursor: 'pointer', marginTop: '1rem' }}>
+            Se connecter
+          </button>
+        </form>
+        <p style={{ marginTop: '1rem', color: '#666' }}>
+          Pas de compte ? <a href="#" onClick={(e) => { e.preventDefault(); alert('Inscription à venir'); }}>Créer un compte</a>
+        </p>
+      </div>
+    )
+  }
+
+  // Interface authentifié (simplifiée pour MVP)
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <div style={{ fontFamily: 'system-ui', maxWidth: '600px', margin: '0 auto', padding: '1rem' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <h1>🏗️ ChantierSuivi</h1>
+        <button onClick={() => supabase.auth.signOut().then(() => setSession(null))}
+          style={{ background: '#dc3545', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px' }}>
+          Déconnexion
         </button>
-      </section>
+      </header>
+      
+      <div style={{ background: '#e8f4fd', padding: '1rem', borderRadius: '8px' }}>
+        <h2>🎉 Bienvenue !</h2>
+        <p>Votre app ChantierSuivi est déployée avec succès 🚀</p>
+        <p><strong>Email :</strong> {session.user.email}</p>
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <div style={{ marginTop: '2rem', textAlign: 'center', color: '#666' }}>
+        <p>🔧 Prochaines fonctionnalités :</p>
+        <ul style={{ textAlign: 'left', display: 'inline-block' }}>
+          <li>✅ Authentification utilisateur</li>
+          <li>⏳ Création de chantiers</li>
+          <li>⏳ Upload photo géolocalisé</li>
+          <li>⏳ Suivi budget temps réel</li>
+          <li>⏳ Intégration KKiaPay</li>
+        </ul>
+      </div>
+    </div>
   )
 }
 
