@@ -3,22 +3,17 @@ import { supabase } from './lib/supabase'
 
 function App() {
   const [session, setSession] = useState(null)
-  const [chantiers, setChantiers] = useState([])
 
-  // Vérifier la session au chargement
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
     })
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
-
     return () => subscription.unsubscribe()
   }, [])
 
-  // Interface non authentifié
   if (!session) {
     return (
       <div style={{ fontFamily: 'system-ui', textAlign: 'center', padding: '2rem' }}>
@@ -48,7 +43,6 @@ function App() {
     )
   }
 
-  // Interface authentifié (simplifiée pour MVP)
   return (
     <div style={{ fontFamily: 'system-ui', maxWidth: '600px', margin: '0 auto', padding: '1rem' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
