@@ -3,146 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChantierSuivi – Suivi de chantier transparent pour la diaspora</title>
-  <meta name="description" content="Application de suivi de chantiers pour la diaspora togolaise. Preuves géolocalisées, budget maîtrisé et paiements sécurisés.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>ChantierSuivi – Suivi de chantier transparent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --accent: #10b981;
-      --secondary: #0f172a;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #334155;
-      --text-light: #64748b;
-      --shadow: 0 10px 40px rgba(0,0,0,0.1);
-    }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      color: #333;
       line-height: 1.6;
-      overflow-x: hidden;
     }
     
-    /* Hero Section */
+    /* Hero avec dégradé professionnel */
     .hero {
-      position: relative;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      padding: 2rem;
+      position: relative;
       overflow: hidden;
     }
     
-    /* Container vidéo */
-    .video-wrapper {
+    .hero::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      overflow: hidden;
-    }
-    
-    .video-wrapper iframe {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: 177.77vh; /* 16:9 aspect ratio */
-      height: 56.25vw;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      opacity: 0.4;
-    }
-    
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(37, 99, 235, 0.9) 100%);
-      z-index: 1;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
     }
     
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
       text-align: center;
       color: white;
     }
     
     .badge {
       display: inline-block;
-      background: var(--accent);
+      background: #10b981;
       color: white;
-      padding: 0.5rem 1.2rem;
-      border-radius: 999px;
-      font-size: 0.95rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
       font-weight: 600;
       margin-bottom: 2rem;
-      animation: pulse 2s infinite;
+      font-size: 1rem;
       box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-    }
-    
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
     }
     
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      line-height: 1.2;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
     
     .hero-subtitle {
       font-size: 1.3rem;
-      opacity: 0.95;
       margin-bottom: 2.5rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      opacity: 0.95;
       font-weight: 400;
     }
     
     .cta-phone {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--accent);
+      display: inline-block;
+      background: #10b981;
       color: white;
       padding: 1.5rem 3rem;
       border-radius: 16px;
       text-decoration: none;
       font-size: 2rem;
-      font-weight: 800;
-      margin: 1.5rem 0;
-      transition: all 0.3s;
+      font-weight: 700;
+      margin: 1rem 0;
       box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
-      animation: bounce 2s infinite;
-      border: 3px solid rgba(255,255,255,0.2);
-    }
-    
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      transition: all 0.3s;
+      border: 3px solid rgba(255,255,255,0.3);
     }
     
     .cta-phone:hover {
@@ -151,9 +93,11 @@
     }
     
     .cta-label {
+      display: block;
       font-size: 0.95rem;
-      font-weight: 500;
-      opacity: 0.95;
+      margin-top: 0.5rem;
+      font-weight: 400;
+      opacity: 0.9;
     }
     
     /* Sections */
@@ -168,15 +112,7 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 3rem;
-      color: var(--secondary);
-    }
-    
-    .problem-section {
-      background: white;
-    }
-    
-    .solution-section {
-      background: var(--bg);
+      color: #1e3a8a;
     }
     
     .grid {
@@ -186,41 +122,38 @@
     }
     
     .card {
-      background: var(--card);
+      background: white;
       padding: 2rem;
       border-radius: 16px;
-      box-shadow: var(--shadow);
-      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
     
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     }
     
     .card h3 {
       font-size: 1.3rem;
       font-weight: 600;
       margin: 1rem 0 0.75rem;
-      color: var(--secondary);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
+      color: #1e3a8a;
     }
     
     .card p {
-      color: var(--text-light);
+      color: #64748b;
       line-height: 1.7;
     }
     
-    .pitch-section {
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    /* Pitch section */
+    .pitch {
+      background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
       color: white;
       padding: 5rem 2rem;
     }
     
-    .pitch-section h2 {
+    .pitch h2 {
       color: white;
     }
     
@@ -231,7 +164,6 @@
       padding: 3rem;
       border-radius: 20px;
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
     }
     
     .pitch-content h3 {
@@ -242,13 +174,12 @@
     
     .pitch-content h3:first-child {
       margin-top: 0;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
     }
     
     .pitch-content ul {
       list-style: none;
       margin: 1rem 0;
-      padding-left: 0;
     }
     
     .pitch-content li {
@@ -256,12 +187,11 @@
       padding-left: 2rem;
       position: relative;
       font-size: 1.05rem;
-      line-height: 1.6;
     }
     
     .pitch-content li::before {
       content: "✓";
-      color: var(--accent);
+      color: #10b981;
       font-weight: bold;
       position: absolute;
       left: 0;
@@ -270,14 +200,13 @@
     
     .price-tag {
       display: inline-block;
-      background: var(--accent);
+      background: #10b981;
       color: white;
       padding: 1rem 2rem;
-      border-radius: 999px;
+      border-radius: 50px;
       font-weight: 700;
       margin: 1.5rem 0;
       font-size: 1.2rem;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
     }
     
     .final-cta {
@@ -289,63 +218,44 @@
     
     /* Footer */
     footer {
-      background: var(--secondary);
+      background: #0f172a;
       color: white;
       text-align: center;
       padding: 2.5rem 2rem;
-      font-size: 1rem;
     }
     
     footer strong {
-      color: var(--accent);
-      font-weight: 700;
+      color: #10b981;
     }
     
     /* Responsive */
     @media (max-width: 768px) {
       .hero h1 { font-size: 2.2rem; }
       .hero-subtitle { font-size: 1.05rem; }
-      .cta-phone { 
-        font-size: 1.5rem; 
-        padding: 1.2rem 2rem;
-      }
+      .cta-phone { font-size: 1.5rem; padding: 1.2rem 2rem; }
       h2 { font-size: 1.8rem; }
       .grid { grid-template-columns: 1fr; }
       .pitch-content { padding: 2rem 1.5rem; }
-      .card h3 { font-size: 1.15rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
-    <!-- Vidéo YouTube en background -->
-    <div class="video-wrapper">
-      <iframe 
-        src="https://www.youtube.com/embed/8upz0tBXAyg?autoplay=1&mute=1&loop=1&playlist=8upz0tBXAyg&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
-        title="ChantierSuivi Video"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        loading="lazy">
-      </iframe>
-    </div>
-    <div class="video-overlay"></div>
-    
     <div class="hero-content">
       <div class="badge">✅ Démo technique prête</div>
       <h1>🏗️ ChantierSuivi</h1>
       <p class="hero-subtitle">Le suivi de chantier transparent et sécurisé pour la diaspora togolaise</p>
       
       <a href="tel:+22890588358" class="cta-phone">
-        <span>+228 90 58 83 58</span>
+        +228 90 58 83 58
         <span class="cta-label">📞 Appelez-nous pour une démo personnalisée</span>
       </a>
     </div>
   </section>
 
   <!-- Problème -->
-  <section class="problem-section">
+  <section>
     <h2>🎯 Le problème</h2>
     <div class="grid">
       <div class="card">
@@ -354,48 +264,48 @@
       </div>
       <div class="card">
         <h3>🤝 Manque de confiance</h3>
-        <p>L'éloignement géographique rend difficile le contrôle des avancements réels et la vérification des justificatifs de paiement fournis par les entrepreneurs.</p>
+        <p>L'éloignement géographique rend difficile le contrôle des avancements réels et la vérification des justificatifs de paiement.</p>
       </div>
       <div class="card">
         <h3>📱 Outils inadaptés</h3>
-        <p>Les solutions existantes sont trop complexes, hors de prix ou ne fonctionnent pas correctement avec une connexion mobile instable en Afrique.</p>
+        <p>Les solutions existantes sont trop complexes, hors de prix ou ne fonctionnent pas correctement avec une connexion mobile instable.</p>
       </div>
     </div>
   </section>
 
   <!-- Solution -->
-  <section class="solution-section">
+  <section style="background: #f8fafc;">
     <h2>💡 Notre solution</h2>
     <div class="grid">
       <div class="card">
         <h3>📸 Preuves géolocalisées</h3>
-        <p>Photos hebdomadaires obligatoires, horodatées et géolocalisées pour attester de l'avancement réel sur site. Fini les excuses !</p>
+        <p>Photos hebdomadaires obligatoires, horodatées et géolocalisées pour attester de l'avancement réel sur site.</p>
       </div>
       <div class="card">
         <h3>💰 Budget maîtrisé</h3>
-        <p>Tableau de bord financier en temps réel. Suivez les dépenses, comparez au budget initial et anticipez les écarts avant qu'il ne soit trop tard.</p>
+        <p>Tableau de bord financier en temps réel. Suivez les dépenses et anticipez les écarts.</p>
       </div>
       <div class="card">
         <h3>✅ Validation avant paiement</h3>
-        <p>Aucun fond n'est débloqué sans votre validation explicite de l'étape terminée. Vous gardez le contrôle total de votre investissement.</p>
+        <p>Aucun fond n'est débloqué sans votre validation explicite de l'étape terminée.</p>
       </div>
       <div class="card">
         <h3>🔔 Alertes intelligentes</h3>
-        <p>Notifications automatiques en cas d'inactivité prolongée, de dépassement budgétaire ou de modification de planning non justifiée.</p>
+        <p>Notifications automatiques en cas d'inactivité prolongée ou de dépassement budgétaire.</p>
       </div>
       <div class="card">
         <h3>📱 Interface légère</h3>
-        <p>Application optimisée pour les smartphones et les connexions 3G. Fonctionne même en zone à faible couverture réseau au Togo.</p>
+        <p>Application optimisée pour smartphones et connexions 3G/4G au Togo.</p>
       </div>
       <div class="card">
         <h3>💳 Mobile Money intégré</h3>
-        <p>Paiements sécurisés via KKiaPay (Moov Money, Togocel Cash, etc.). Historique complet des transactions et reçus numériques automatiques.</p>
+        <p>Paiements sécurisés via KKiaPay (Moov, Togocel). Reçus numériques automatiques.</p>
       </div>
     </div>
   </section>
 
-  <!-- Pitch complet -->
-  <section class="pitch-section">
+  <!-- Pitch -->
+  <section class="pitch">
     <div class="pitch-content">
       <h3>🗣️ Bonjour, je vous présente ChantierSuivi</h3>
       
@@ -411,7 +321,7 @@
         <li>Des alertes automatiques en cas d'anomalie</li>
       </ul>
       
-      <h3>💰 Modèle économique</h3>
+      <h3>💰 Modèle</h3>
       <div class="price-tag">À partir de 5 000 FCFA/mois par chantier</div>
       <p>Accessible, transparent et scalable.</p>
       
@@ -419,11 +329,10 @@
       <p>Ce que vous voyez aujourd'hui est une <strong>démo technique fonctionnelle</strong>. La version complète avec authentification, upload photo et paiements Mobile Money sera prête dans <strong>4 semaines</strong>.</p>
       
       <div class="final-cta">
-        <h3>👉 Intéressé pour tester la version bêta ?</h3>
-        <p>Nous recherchons des chantiers pilotes pour tester l'application en conditions réelles.</p>
+        <h3>👉 Seriez-vous intéressé pour tester la version bêta avec un premier chantier pilote ?</h3>
         
         <a href="tel:+22890588358" class="cta-phone" style="margin-top: 2rem;">
-          <span>+228 90 58 83 58</span>
+          +228 90 58 83 58
           <span class="cta-label">Contactez-nous maintenant</span>
         </a>
       </div>
@@ -433,8 +342,8 @@
   <!-- Footer -->
   <footer>
     <p>© 2026 <strong>RHEMA CORPORATION OFFICE</strong> - Tous droits réservés</p>
-    <p style="margin-top: 0.75rem; font-size: 0.9rem; opacity: 0.85;">
-      📞 +228 90 58 83 58 • Démo technique ChantierSuivi • Version alpha
+    <p style="margin-top: 0.75rem; opacity: 0.85; font-size: 0.9rem;">
+      📞 +228 90 58 83 58 • Démo technique ChantierSuivi
     </p>
   </footer>
 </body>
